@@ -1,6 +1,7 @@
 import { LayoutDashboard, FolderKanban, Users, Settings } from "lucide-react";
 import UserButtonClient from "@/components/user-button";
 import NavLink from "@/components/nav-link";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function DashboardLayout({
   children,
@@ -40,6 +41,7 @@ export default function DashboardLayout({
       </aside>
 
       <main className="flex-1 overflow-auto">{children}</main>
+      <Toaster position="top-right" richColors />
     </div>
   );
 }
