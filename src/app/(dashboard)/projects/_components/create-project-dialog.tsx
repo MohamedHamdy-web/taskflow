@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Plus, X } from "lucide-react";
 import { createProject } from "@/lib/actions";
+import { toast } from "sonner";
 
 interface CreateProjectDialogProps {
   workspaceId: string;
@@ -28,6 +29,7 @@ export default function CreateProjectDialog({
     setDescription("");
     setLoading(false);
     setOpen(false);
+    toast.success("Project created!");
     router.refresh();
   }
 

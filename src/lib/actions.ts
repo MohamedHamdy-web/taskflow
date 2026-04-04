@@ -116,3 +116,20 @@ export async function updateTask({
     },
   });
 }
+
+export async function removeMember(memberId: string) {
+  const user = await currentUser();
+  if (!user) redirect("/sign-in");
+
+  await prisma.member.delete({ where: { id: memberId } });
+}
+
+export async function updateMemberRole(memberId: string, role: string) {
+  const user = await currentUser();
+  if (!user) redirect("/sign-in");
+
+  await prisma.member.update({
+    where: { id: memberId },
+    data: { role: role as "ADMIN" | "MEMBER" },
+  });
+}

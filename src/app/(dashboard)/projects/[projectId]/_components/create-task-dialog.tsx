@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Plus, X } from "lucide-react";
 import { createTask } from "@/lib/actions";
+import { toast } from "sonner";
 
 interface CreateTaskDialogProps {
   projectId: string;
@@ -29,6 +30,7 @@ export default function CreateTaskDialog({ projectId }: CreateTaskDialogProps) {
     setPriority("MEDIUM");
     setLoading(false);
     setOpen(false);
+    toast.success("Task created!");
     router.refresh();
   }
 

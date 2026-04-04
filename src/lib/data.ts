@@ -20,3 +20,11 @@ export async function getDashboardStats(workspaceId: string) {
 
   return { projects, members, tasks, doneTasks };
 }
+
+export async function getMembers(workspaceId: string) {
+  return prisma.member.findMany({
+    where: { workspaceId },
+    include: { user: true },
+    orderBy: { joinedAt: "asc" },
+  });
+}
