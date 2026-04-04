@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { LayoutDashboard, FolderKanban, Users, Settings } from "lucide-react";
 import UserButtonClient from "@/components/user-button";
+import NavLink from "@/components/nav-link";
 
 export default function DashboardLayout({
   children,
@@ -16,34 +16,22 @@ export default function DashboardLayout({
         </div>
 
         <nav className="flex-1 p-4 space-y-1">
-          <Link
-            href="/dashboard"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-zinc-700 hover:bg-zinc-100 transition-colors"
-          >
+          <NavLink href="/dashboard">
             <LayoutDashboard className="w-4 h-4" />
             Dashboard
-          </Link>
-          <Link
-            href="/projects"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-zinc-700 hover:bg-zinc-100 transition-colors"
-          >
+          </NavLink>
+          <NavLink href="/projects">
             <FolderKanban className="w-4 h-4" />
             Projects
-          </Link>
-          <Link
-            href="/members"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-zinc-700 hover:bg-zinc-100 transition-colors"
-          >
+          </NavLink>
+          <NavLink href="/members">
             <Users className="w-4 h-4" />
             Members
-          </Link>
-          <Link
-            href="/settings"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-zinc-700 hover:bg-zinc-100 transition-colors"
-          >
+          </NavLink>
+          <NavLink href="/settings">
             <Settings className="w-4 h-4" />
             Settings
-          </Link>
+          </NavLink>
         </nav>
 
         <div className="p-4 border-t border-zinc-200 flex items-center gap-3">
