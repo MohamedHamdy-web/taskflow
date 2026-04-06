@@ -1,8 +1,9 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { getOrCreateWorkspace } from "@/lib/workspace";
-import { getDashboardStats } from "@/lib/data";
+import { getDashboardStats, getPendingInvitations } from "@/lib/data";
 import { FolderKanban, Users, CheckSquare, CheckCheck } from "lucide-react";
+import InvitationsBanner from "@/components/invitations-banner";
 
 export default async function DashboardPage() {
   const user = await currentUser();
@@ -16,9 +17,11 @@ export default async function DashboardPage() {
 
   if (!workspace) redirect("/sign-in");
 
-  const { projects, members, tasks, doneTasks } = await getDashboardStats(
-    workspace.id,
-  );
+  const [{ projects, members, tasks, doneTasks }, invitations] =
+    await Promise.all([
+      getDashboardStats(workspace.id),
+      getPendingInvitations(user.emailAddresses[0]?.emailAddress ?? ""),
+    ]);
 
   const stats = [
     {
@@ -57,6 +60,8 @@ export default async function DashboardPage() {
         <h1 className="text-2xl font-bold text-zinc-900">Dashboard</h1>
         <p className="text-zinc-500 mt-1">Welcome back, {user.firstName}!</p>
       </div>
+
+      <InvitationsBanner invitations={invitations} />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat) => (

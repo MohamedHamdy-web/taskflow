@@ -28,3 +28,16 @@ export async function getMembers(workspaceId: string) {
     orderBy: { joinedAt: "asc" },
   });
 }
+
+export async function getPendingInvitations(email: string) {
+  return prisma.invitation.findMany({
+    where: {
+      email,
+      status: "PENDING",
+    },
+    include: {
+      workspace: true,
+      invitedBy: true,
+    },
+  });
+}

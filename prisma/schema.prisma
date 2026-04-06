@@ -17,6 +17,8 @@ model User {
 
   memberships     Member[]
   createdProjects Project[]
+
+  sentInvitations Invitation[]
 }
 
 model Workspace {
@@ -28,6 +30,8 @@ model Workspace {
 
   members   Member[]
   projects  Project[]
+
+  Invitations Invitation[]
 }
 
 model Member {
@@ -92,4 +96,24 @@ enum Priority {
   LOW
   MEDIUM
   HIGH
+}
+
+model Invitation {
+  id          String           @id @default(cuid())
+  email       String
+  workspaceId String
+  invitedById String
+  status      InvitationStatus @default(PENDING)
+  createdAt   DateTime         @default(now())
+
+  workspace   Workspace        @relation(fields: [workspaceId], references: [id])
+  invitedBy   User             @relation(fields: [invitedById], references: [id])
+
+  @@unique([email, workspaceId])
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
 }
