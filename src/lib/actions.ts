@@ -133,3 +133,65 @@ export async function updateMemberRole(memberId: string, role: string) {
     data: { role: role as "ADMIN" | "MEMBER" },
   });
 }
+
+export async function updateWorkspace({
+  workspaceId,
+  name,
+}: {
+  workspaceId: string;
+  name: string;
+}) {
+  const user = await currentUser();
+  if (!user) redirect("/sign-in");
+
+  await prisma.workspace.update({
+    where: { id: workspaceId },
+    data: { name },
+  });
+}
+
+export async function inviteMember({
+  email,
+  workspaceId,
+}: {
+  email: string;
+  workspaceId: string;
+}) {
+  const user = await currentUser();
+  if (!user) redirect("/sign-in");
+
+  // Check if user exists in our DB
+  const invitedUser = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (!invitedUser) {
+    return {
+      error: "No user found with that email. They need to sign up first.",
+    };
+  }
+
+  // Check if already a member
+  const existingMember = await prisma.member.findUnique({
+    where: {
+      userId_workspaceId: {
+        userId: invitedUser.id,
+        workspaceId,
+      },
+    },
+  });
+
+  if (existingMember) {
+    return { error: "This user is already a member of your workspace." };
+  }
+
+  await prisma.member.create({
+    data: {
+      userId: invitedUser.id,
+      workspaceId,
+      role: "MEMBER",
+    },
+  });
+
+  return { success: true };
+}
