@@ -32,8 +32,10 @@ export default function WorkspaceSettings({
   }
 
   return (
-    <div className="bg-white rounded-xl border border-zinc-200 p-6">
-      <h2 className="text-lg font-semibold text-zinc-900 mb-4">Workspace</h2>
+    <div className="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 p-6">
+      <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-4">
+        Workspace
+      </h2>
       <div className="space-y-4">
         <div>
           <Label htmlFor="name">Workspace Name</Label>
@@ -50,7 +52,7 @@ export default function WorkspaceSettings({
           <Input
             value={workspace.slug}
             disabled
-            className="mt-1 bg-zinc-50 text-zinc-400"
+            className="mt-1 bg-zinc-50 dark:bg-zinc-800 text-zinc-400"
           />
           <p className="text-xs text-zinc-400 mt-1">Slug cannot be changed</p>
         </div>

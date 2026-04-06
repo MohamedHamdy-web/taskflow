@@ -11,9 +11,10 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
 const PRIORITY_COLORS = {
-  LOW: "bg-zinc-100 text-zinc-600",
-  MEDIUM: "bg-yellow-100 text-yellow-700",
-  HIGH: "bg-red-100 text-red-700",
+  LOW: "bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300",
+  MEDIUM:
+    "bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300",
+  HIGH: "bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300",
 };
 
 const STATUS_OPTIONS = ["TODO", "IN_PROGRESS", "IN_REVIEW", "DONE"];
@@ -42,13 +43,10 @@ export default function TaskCard({ task }: TaskCardProps) {
         onClick: async () => {
           await deleteTask(task.id);
           router.refresh();
-          toast.success("Task deleted");
+          toast.success("Task deleted!");
         },
       },
-      cancel: {
-        label: "Cancel",
-        onClick: () => {},
-      },
+      cancel: { label: "Cancel", onClick: () => {} },
     });
   }
 
@@ -64,9 +62,11 @@ export default function TaskCard({ task }: TaskCardProps) {
 
   if (editing) {
     return (
-      <div className="bg-white rounded-lg border border-zinc-200 p-3 shadow-sm">
+      <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-700 p-3 shadow-sm">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-sm font-medium text-zinc-900">Edit Task</p>
+          <p className="text-sm font-medium text-zinc-900 dark:text-white">
+            Edit Task
+          </p>
           <button
             onClick={() => setEditing(false)}
             className="text-zinc-400 hover:text-zinc-600"
@@ -76,30 +76,27 @@ export default function TaskCard({ task }: TaskCardProps) {
         </div>
         <div className="space-y-2">
           <div>
-            <Label htmlFor="title">Title</Label>
+            <Label>Title</Label>
             <Input
-              id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               className="mt-1"
             />
           </div>
           <div>
-            <Label htmlFor="description">Description</Label>
+            <Label>Description</Label>
             <Input
-              id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="mt-1"
             />
           </div>
           <div>
-            <Label htmlFor="priority">Priority</Label>
+            <Label>Priority</Label>
             <select
-              id="priority"
               value={priority}
               onChange={(e) => setPriority(e.target.value as Task["priority"])}
-              className="mt-1 w-full border border-zinc-200 rounded-lg px-3 py-2 text-sm outline-none"
+              className="mt-1 w-full border border-zinc-200 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white rounded-lg px-3 py-2 text-sm outline-none"
             >
               <option value="LOW">Low</option>
               <option value="MEDIUM">Medium</option>
@@ -128,13 +125,15 @@ export default function TaskCard({ task }: TaskCardProps) {
   }
 
   return (
-    <div className="bg-white rounded-lg border border-zinc-200 p-3 shadow-sm">
+    <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-700 p-3 shadow-sm">
       <div className="flex items-start justify-between mb-2">
-        <p className="text-sm font-medium text-zinc-900">{task.title}</p>
+        <p className="text-sm font-medium text-zinc-900 dark:text-white">
+          {task.title}
+        </p>
         <div className="flex items-center gap-1 ml-2">
           <button
             onClick={() => setEditing(true)}
-            className="text-zinc-400 hover:text-zinc-600"
+            className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
           >
             <Pencil className="w-3.5 h-3.5" />
           </button>
@@ -146,13 +145,11 @@ export default function TaskCard({ task }: TaskCardProps) {
           </button>
         </div>
       </div>
-
       {task.description && (
-        <p className="text-xs text-zinc-500 mb-3 line-clamp-2">
+        <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-3 line-clamp-2">
           {task.description}
         </p>
       )}
-
       <div className="flex items-center justify-between">
         <span
           className={`text-xs px-2 py-0.5 rounded-full font-medium ${PRIORITY_COLORS[task.priority]}`}
@@ -162,7 +159,7 @@ export default function TaskCard({ task }: TaskCardProps) {
         <select
           value={task.status}
           onChange={handleStatusChange}
-          className="text-xs text-zinc-500 bg-transparent border-none outline-none cursor-pointer"
+          className="text-xs text-zinc-500 dark:text-zinc-400 bg-transparent border-none outline-none cursor-pointer"
         >
           {STATUS_OPTIONS.map((s) => (
             <option key={s} value={s}>

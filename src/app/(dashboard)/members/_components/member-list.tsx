@@ -13,9 +13,9 @@ const ROLE_ICONS = {
 };
 
 const ROLE_COLORS = {
-  OWNER: "bg-yellow-50 text-yellow-700",
-  ADMIN: "bg-blue-50 text-blue-700",
-  MEMBER: "bg-zinc-100 text-zinc-600",
+  OWNER: "bg-yellow-50 dark:bg-yellow-950 text-yellow-700 dark:text-yellow-300",
+  ADMIN: "bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300",
+  MEMBER: "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400",
 };
 
 interface MemberListProps {
@@ -52,21 +52,23 @@ export default function MemberList({
   }
 
   return (
-    <div className="bg-white rounded-xl border border-zinc-200 divide-y divide-zinc-100">
+    <div className="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 divide-y divide-zinc-100 dark:divide-zinc-800">
       {members.map((member) => (
         <div key={member.id} className="flex items-center justify-between p-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center text-sm font-medium text-zinc-600">
+            <div className="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-sm font-medium text-zinc-600 dark:text-zinc-300">
               {member.user.name?.[0] ?? member.user.email[0].toUpperCase()}
             </div>
             <div>
-              <p className="text-sm font-medium text-zinc-900">
+              <p className="text-sm font-medium text-zinc-900 dark:text-white">
                 {member.user.name ?? "No name"}
                 {member.userId === currentUserId && (
                   <span className="text-zinc-400 font-normal"> (you)</span>
                 )}
               </p>
-              <p className="text-xs text-zinc-500">{member.user.email}</p>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                {member.user.email}
+              </p>
             </div>
           </div>
 
@@ -77,13 +79,12 @@ export default function MemberList({
               {ROLE_ICONS[member.role]}
               {member.role}
             </div>
-
             {isOwner && member.userId !== currentUserId && (
               <div className="flex items-center gap-2">
                 <select
                   value={member.role}
                   onChange={(e) => handleRoleChange(member.id, e.target.value)}
-                  className="text-xs border border-zinc-200 rounded-lg px-2 py-1 outline-none"
+                  className="text-xs border border-zinc-200 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white rounded-lg px-2 py-1 outline-none"
                 >
                   <option value="ADMIN">Admin</option>
                   <option value="MEMBER">Member</option>

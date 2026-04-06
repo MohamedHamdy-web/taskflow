@@ -36,13 +36,10 @@ export default function ProjectList({
         onClick: async () => {
           await deleteProject(projectId);
           router.refresh();
-          toast.success("Project deleted");
+          toast.success("Project deleted!");
         },
       },
-      cancel: {
-        label: "Cancel",
-        onClick: () => {},
-      },
+      cancel: { label: "Cancel", onClick: () => {} },
     });
   }
 
@@ -70,11 +67,13 @@ export default function ProjectList({
 
       {projects.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center">
-          <div className="bg-zinc-100 p-4 rounded-full mb-4">
+          <div className="bg-zinc-100 dark:bg-zinc-800 p-4 rounded-full mb-4">
             <FolderKanban className="w-8 h-8 text-zinc-400" />
           </div>
-          <h3 className="text-lg font-medium text-zinc-900">No projects yet</h3>
-          <p className="text-zinc-500 mt-1 text-sm">
+          <h3 className="text-lg font-medium text-zinc-900 dark:text-white">
+            No projects yet
+          </h3>
+          <p className="text-zinc-500 dark:text-zinc-400 mt-1 text-sm">
             Create your first project to get started
           </p>
         </div>
@@ -83,34 +82,33 @@ export default function ProjectList({
           {projects.map((project) => (
             <div
               key={project.id}
-              className="relative bg-white rounded-xl border border-zinc-200 hover:border-zinc-400 hover:shadow-sm transition-all"
+              className="relative bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-sm transition-all"
             >
               <Link href={`/projects/${project.id}`} className="block p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="bg-zinc-100 p-2 rounded-lg">
-                    <FolderKanban className="w-5 h-5 text-zinc-600" />
+                  <div className="bg-zinc-100 dark:bg-zinc-800 p-2 rounded-lg">
+                    <FolderKanban className="w-5 h-5 text-zinc-600 dark:text-zinc-400" />
                   </div>
-                  <h3 className="font-semibold text-zinc-900">
+                  <h3 className="font-semibold text-zinc-900 dark:text-white">
                     {project.name}
                   </h3>
                 </div>
                 {project.description && (
-                  <p className="text-sm text-zinc-500 mb-4 line-clamp-2">
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-4 line-clamp-2">
                     {project.description}
                   </p>
                 )}
                 <div className="flex items-center gap-2">
-                  <span className="text-xs bg-zinc-100 text-zinc-600 px-2 py-1 rounded-full">
+                  <span className="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-2 py-1 rounded-full">
                     {project._count.tasks} tasks
                   </span>
                 </div>
               </Link>
 
-              {/* Buttons sit on top of the link */}
               <div className="absolute top-4 right-4 flex items-center gap-1">
                 <button
                   onClick={() => openEdit(project)}
-                  className="text-zinc-400 hover:text-zinc-600 p-1"
+                  className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 p-1"
                 >
                   <Pencil className="w-4 h-4" />
                 </button>
@@ -126,11 +124,10 @@ export default function ProjectList({
         </div>
       )}
 
-      {/* Edit Project Modal */}
       {editingProject && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 w-full max-w-md shadow-xl">
-            <h2 className="text-lg font-semibold text-zinc-900 mb-6">
+          <div className="bg-white dark:bg-zinc-900 rounded-xl p-6 w-full max-w-md shadow-xl">
+            <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-6">
               Edit Project
             </h2>
             <div className="space-y-4">

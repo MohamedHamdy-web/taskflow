@@ -16,9 +16,7 @@ export default async function ProjectPage({
   const project = await prisma.project.findUnique({
     where: { id: projectId },
     include: {
-      tasks: {
-        orderBy: { createdAt: "asc" },
-      },
+      tasks: { orderBy: { createdAt: "asc" } },
     },
   });
 
@@ -27,9 +25,13 @@ export default async function ProjectPage({
   return (
     <div className="p-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-zinc-900">{project.name}</h1>
+        <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">
+          {project.name}
+        </h1>
         {project.description && (
-          <p className="text-zinc-500 mt-1">{project.description}</p>
+          <p className="text-zinc-500 dark:text-zinc-400 mt-1">
+            {project.description}
+          </p>
         )}
       </div>
       <KanbanBoard tasks={project.tasks} projectId={project.id} />

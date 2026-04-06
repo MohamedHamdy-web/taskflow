@@ -9,10 +9,10 @@ export default function UserButtonClient() {
     <div className="flex items-center gap-3">
       <UserButton />
       <div className="flex flex-col">
-        <span className="text-sm font-medium text-zinc-900">
+        <span className="text-sm font-medium text-zinc-900 dark:text-white">
           {user?.fullName || user?.firstName || "Account"}
         </span>
-        <span className="text-xs text-zinc-500">
+        <span className="text-xs text-zinc-500 dark:text-zinc-400">
           {user?.emailAddresses[0]?.emailAddress}
         </span>
       </div>

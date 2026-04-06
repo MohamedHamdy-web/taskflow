@@ -26,18 +26,18 @@ export default function InviteMember({ workspaceId }: InviteMemberProps) {
     if (result.error) {
       toast.error(result.error);
     } else {
-      toast.success("Member invited!");
+      toast.success("Invitation sent!");
       setEmail("");
       router.refresh();
     }
   }
 
   return (
-    <div className="bg-white rounded-xl border border-zinc-200 p-6">
-      <h2 className="text-lg font-semibold text-zinc-900 mb-1">
+    <div className="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 p-6">
+      <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-1">
         Invite Member
       </h2>
-      <p className="text-sm text-zinc-500 mb-4">
+      <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-4">
         Invite someone to your workspace by their email address
       </p>
       <div className="space-y-4">
@@ -53,7 +53,7 @@ export default function InviteMember({ workspaceId }: InviteMemberProps) {
           />
         </div>
         <Button onClick={handleInvite} disabled={loading}>
-          {loading ? "Inviting..." : "Send Invite"}
+          {loading ? "Sending..." : "Send Invite"}
         </Button>
       </div>
     </div>

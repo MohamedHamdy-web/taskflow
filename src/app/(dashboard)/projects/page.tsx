@@ -20,11 +20,13 @@ export default async function ProjectsPage() {
 
   return (
     <div className="p-8">
-      <div className="mb-8 flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-zinc-900">Projects</h1>
-          <p className="text-zinc-500 mt-1">Manage your workspace projects</p>
-        </div>
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">
+          Projects
+        </h1>
+        <p className="text-zinc-500 dark:text-zinc-400 mt-1">
+          Manage your workspace projects
+        </p>
       </div>
       <ProjectList projects={projects} workspaceId={workspace.id} />
     </div>

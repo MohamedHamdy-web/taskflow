@@ -44,11 +44,11 @@ export default function InvitationsBanner({
       {invitations.map((invitation) => (
         <div
           key={invitation.id}
-          className="flex items-center justify-between bg-blue-50 border border-blue-200 rounded-xl px-4 py-3"
+          className="flex items-center justify-between bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-xl px-4 py-3"
         >
           <div className="flex items-center gap-3">
             <Bell className="w-4 h-4 text-blue-500" />
-            <p className="text-sm text-blue-900">
+            <p className="text-sm text-blue-900 dark:text-blue-100">
               <span className="font-medium">
                 {invitation.invitedBy.name || invitation.invitedBy.email}
               </span>{" "}
@@ -60,7 +60,7 @@ export default function InvitationsBanner({
             <Button
               size="sm"
               variant="outline"
-              className="text-xs border-blue-200 text-blue-700 hover:bg-blue-100"
+              className="text-xs border-blue-200 dark:border-blue-700 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900"
               onClick={() => handleDecline(invitation.id)}
             >
               Decline
